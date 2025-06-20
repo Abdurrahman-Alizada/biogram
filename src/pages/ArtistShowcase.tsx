@@ -31,7 +31,7 @@ const ArtistShowcase = () => {
         <div className="flex flex-col md:flex-row shadow-[0px_0px_20.2px_0px_#00000040] rounded-2xl gap-9 md:gap-0 lg:w-[60%] lg:h-[422px] xl:h-full">
           <div className="md:w-[50%]">
             <p className="mt-5 max-w-[500px] bg-gradient-to-r from-[#7ECFA7] to-[#53886C] text-white text-[16px] md:text-[20px] font-semibold px-4 py-2 rounded-r-full">
-              Coming Soon: Add your Tickets
+              Add your Tickets
             </p>
             <div className="pl-5">
               <h1 className="text-[20px] md:text[30px] md:text-[40px] my-8 lg:my-1 xl:my-15 font-extrabold text-black">
@@ -132,7 +132,7 @@ const ArtistShowcase = () => {
         </div>
         <div className="flex flex-col lg:w-[40%] lg:h-[422px] xl:h-full bg-[#e4f4ec] shadow-[0px_0px_20.2px_0px_#00000040] rounded-2xl">
           <p className="mt-5 max-w-[500px] bg-gradient-to-r from-[#7ECFA7] to-[#53886C] text-white text-[16px] md:text-[20px] font-semibold px-4 py-2 rounded-r-full">
-            Coming Soon: Sell Products & Services
+            Sell Products & Services
           </p>
           <div className="flex flex-row justify-between h-full xl:h-[464px] 2xl:h-[578px] mt-5 relative">
             {/* Card Column - overlaps image and is vertically centered */}
@@ -304,7 +304,7 @@ const ArtistShowcase = () => {
 
         <div className="flex flex-col lg:w-[60%] h-full shadow-[0px_0px_20.2px_0px_#00000040] rounded-2xl">
           <p className="mt-5 max-w-[500px] bg-gradient-to-r from-[#7ECFA7] to-[#53886C] text-white text-[16px] md:text-[20px] font-semibold px-4 py-2 rounded-r-full">
-            Coming Soon: Appointment Scheduler
+            Appointment Scheduler
           </p>
 
           <div className="flex flex-col sm:flex-row justify-between items-center mt-5 lg:mt-0 relative">
