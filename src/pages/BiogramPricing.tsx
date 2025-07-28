@@ -40,6 +40,8 @@ interface PricingCardProps {
 }
 
 const PricingCard: React.FC<PricingCardProps> = ({ plan }) => {
+  const [linkCount, setLinkCount] = useState(25);
+
   return (
     <Card
       className={`border border-gray-300 rounded-[46px] h-full w-[433px] bg-[#b5efd2] shadow-lg relative`}
@@ -57,14 +59,14 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan }) => {
           {Array.isArray(plan.price) ? (
             <>
               <span className="text-3xl font-bold text-[#7ECFA7]">
-                {plan.price.join("$/")}$
+                {plan.price.join("$/")}$ {/* fallback if array passed */}
               </span>
               <span className="text-lg font-medium text-black">/mo</span>
             </>
           ) : (
             <>
-              <span className="text-5xl font-bold text-[#7ECFA7]">{plan.price}</span>
-              <span className="text-lg font-medium text-black">$/mo</span>
+              <span className="text-5xl font-bold text-[#7ECFA7]">{plan.price}$</span>
+              <span className="text-lg font-medium text-black">/mo</span>
             </>
           )}
         </div>
@@ -76,9 +78,32 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan }) => {
         <ul className="space-y-3">
           {plan.features.map((feature, index) => (
             <li key={index} className="flex items-start">
-              {feature.name === "Up to" ? (
-                <div className="bg-[#7ECFA7] text-white px-3 py-1 rounded-md text-sm font-medium">
-                  25 Links
+              {feature.name.includes("Up to") && plan.title === "Agency" ? (
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm font-semibold text-gray-800">Up to</span>
+                  <select
+                    className="px-3 py-1 text-sm rounded-md bg-[#7ECFA7] text-white focus:outline-none"
+                    value={linkCount}
+                    onChange={(e) => setLinkCount(Number(e.target.value))}
+                  >
+                    {[25, 50, 100, 200, 500].map((num) => (
+                      <option key={num} value={num}>
+                        {num} Links
+                      </option>
+                    ))}
+                  </select>
+                  {feature.description && (
+                    <TooltipProvider delayDuration={100}>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="h-4 w-4 text-gray-500 cursor-pointer hover:text-gray-700" />
+                        </TooltipTrigger>
+                        <TooltipContent side="right" className="max-w-[300px]">
+                          <p className="text-sm text-white">{feature.description}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  )}
                 </div>
               ) : (
                 <div className="flex items-center">
@@ -121,7 +146,7 @@ const PricingTable: React.FC<PricingTableProps> = ({ plans }) => {
     <div
       className="w-full bg-cover bg-center py-12"
       style={{
-         backgroundImage: `url(${mybackground})`,
+        backgroundImage: `url(${mybackground})`,
       }}
     >
       <div className="w-full max-w-6xl mx-auto px-4">
@@ -151,11 +176,11 @@ const BiogramPricing = () => {
         { name: "1 Link", description: "You can add one link to your profile." },
         { name: "High converting custom Landing Page", description: "Build a personalized page to showcase all your content and social media links" },
         { name: "Analytics", description: "Track visitors live with detailed insights on demographic,devices,and locations." },
-        { name: "Deeplinks", description: "skip the in-app browser and open your page directly in Safari, Chrome, or tour visitors default browser." },
+        { name: "Deeplinks", description: "Skip the in-app browser and open your page directly in Safari, Chrome, or the visitor's default browser." },
         { name: "Personal QR code", description: "You get an individual QR code that links people directly to your biogram landing page." },
         { name: "Shoutout function", description: "Get shout out from other biogram users." },
         { name: "Multiple link templates", description: "Choose between multiple beautiful designs to create your own customisable link." },
-        { name: "Affiliate program", description: "Get 10% commission for every user you undesrtand." },
+        { name: "Affiliate program", description: "Get 10% commission for every user you refer." },
       ],
     },
     {
@@ -166,23 +191,23 @@ const BiogramPricing = () => {
       features: [
         { name: "Everything in creator", description: "Includes all features from the Creator plan plus additional advanced options." },
         { name: "Posts scheduling", description: "Make posting more effective and schedule your post for the whole week directly in biogram." },
-        { name: "Direct Link", description: "Direct your audience to the final destination instantly,skipping unnecessary steps." },
+        { name: "Direct Link", description: "Direct your audience to the final destination instantly, skipping unnecessary steps." },
         { name: "Your own domain link", description: "Create a link with just your name without the biogram name in it." },
-        { name: "Direct message", description: "Recieve and sent direct messsages to biogram users making outreach and connectiong way more effective." },
-        { name: "Appointment scheduler", description: "people are not able to book an appointment for your service." },
-        { name: "Add your music", description: "Doesn't matter if you are a music producer or just a listener you;re not able to add your fav song to your biogram." },
+        { name: "Direct message", description: "Receive and send direct messages to biogram users, making outreach and connection more effective." },
+        { name: "Appointment scheduler", description: "Let people book an appointment for your service." },
+        { name: "Add your music", description: "Add your favorite song to your biogram — perfect for music producers or listeners." },
       ],
     },
     {
       title: "Agency",
-      price: [10, 20, 35, 50],
+      price: [10],
       description:
-        "Manage all your creators from in one place & maximize your traffic and content",
+        "Manage all your creators from one place & maximize your traffic and content",
       features: [
         { name: "Everything in Creator pro", description: "All features from Creator Pro plus specialized agency tools." },
         { name: "Up to 25/50/100/200/500 Links", description: "Manage multiple links with different permission levels for team members." },
         { name: "Shields protection for direct Links", description: "Add an extra layer of defence against bots and modes with shield protection for all your social links." },
-        { name: "Advanced analytics", description: "See what links performs the best in one dashboard" },
+        { name: "Advanced analytics", description: "See which links perform best in one dashboard." },
       ],
     },
   ];
